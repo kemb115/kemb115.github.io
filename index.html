@@ -20,11 +20,10 @@
   </div>
   </div>
   <div> 
-  <!DOCTYPE html>
 <html>
 <head>
 	
-	<title></title>
+
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
@@ -36,10 +35,7 @@
 
 	L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
 		attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-		subdomains: 'abcd',
-		minZoom: 1,
-		maxZoom: 16,
-		ext: 'png',
+		,
 	}).addTo(mymap);
 	
 	var ki13 ={ 
@@ -671,7 +667,7 @@
 }
 		L.geoJson(ki13 , {
 		color: 'black' ,
-		fillcolour: '#80002a',
+		fillcolour: '#000000',
 		fillOpacity: 0.6
 
 		}).addTo(mymap);
