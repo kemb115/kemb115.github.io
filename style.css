@@ -61,16 +61,3 @@ a:active {
 	font-size: 1px;
 	line-height: 0px;
 }
-
-#map1 {
-	right: 50%;
-	top: 40%;
-	position: absolute;
-	padding-right:1% 
-}
-#map2 {
-	left: 50%;
-	top: 40%;
-	position: absolute;
-	padding-left: 1%
-}
