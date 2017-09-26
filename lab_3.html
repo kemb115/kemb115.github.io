@@ -14,11 +14,59 @@
 
 <div class="container">
   <div class="content">
-    <center><img src="rsz_lab3.png" style="width:auto; height:auto;"/></center>
+    <center><img src="rsz_lab3.jpg" style="width:auto; height:auto;"/></center>
     <hr /> 
     <center><font size="4"><a href="index.html">Home</a> | <a href="lab_2.html">Lab 2</a> | <a href="lab_3.html">Lab 3</a> | <a href="lab_4.html">Lab 4</a> | <a href="lab_5.html">Lab 5</a> | <a href="project.html">Project</a> |</font></center>
     <hr />
   </div>
+	<center><h1>Great Walks of New Zealand</h1></center>
   </div>
+
+  
 </body>
+<div>
+<head> 
+<meta charset=utf-8 />
+<title>Map One</title> 
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet'/>
+</head> 
+<body>
+
+<div id='map1' style='width: 500px; height: 850px'></div>
+	
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2VtYjExNSIsImEiOiJjajZidHp6Z3UxazlhMnFyeWN4dWRyanN0In0.0nYZa8BgPChQ2Ns-zfVRKg';
+var map = new mapboxgl.Map({
+    container: 'map1',
+    style: 'mapbox://styles/kemb115/cj6og3rgc1n342smkbbms5jls',
+	center:[173.223,-40.914],
+	zoom: 4.6
+});
+</script>
+</body>
+</div> 
+<div>
+	<head> 
+<meta charset=utf-8 />
+<title>Map Two</title> 
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet'/>
+</head> 
+<body>
+<div id='map2' style='width: 500px; height: 850px'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2VtYjExNSIsImEiOiJjajZidHp6Z3UxazlhMnFyeWN4dWRyanN0In0.0nYZa8BgPChQ2Ns-zfVRKg';
+var map2 = new mapboxgl.Map({
+    container: 'map2',
+    style: 'mapbox://styles/kemb115/cj7sgjtxn0emy2sq83to78miq',
+	center:[173.223,-40.914],
+	zoom: 4.6
+});
+
+</script>
+</body>
+</div>
+
+	
 </html>
