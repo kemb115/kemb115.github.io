@@ -1,0 +1,76 @@
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background-image: url("images\back.jpeg");
+	margin: 0;
+	padding: 0;
+	color: #000;
+	background-color: darkgrey;
+	
+}
+
+ul, ol, dl { 
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	
+	padding-right: 15px;
+	padding-left: 15px; 
+}
+body 
+a:link {
+	color: #090;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #333;
+}
+a:hover {
+	text-decoration: underline;
+	color: #0C6;
+}
+a:active {
+	text-decoration: none;
+}
+
+.container {
+	width: 960px;
+	margin: 0 auto; 
+	background-color: darkgrey;
+}
+
+
+.content {
+
+	padding: 10px 0;
+}
+
+
+.fltrt {  
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { 
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { 
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+#map1 {
+	right: 50%;
+	top: 50%;
+	position: absolute;
+	padding-right:1% 
+}
+#map2 {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	padding-left: 1%
+}
