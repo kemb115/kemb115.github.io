@@ -22,6 +22,8 @@
   </div>
 <head>
 	<center><h1>Structural Fire Incidence in Auckland, New Zealand Between 2013 and 2016. </h1></center>	
+	<head>
+	
 	<title>Lab 4</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -41,14 +43,17 @@
 			}
 	.legend{
 		text-align: left;
-		line-height: 25px;
+		line-height: 17px;
 		color: gray; }
 		
 	.legend i {
-		width: 15px;
-		height: 15px;
+		width: 20px;
+		height: 12px;
 		float: left;
 		margin-right: 15px;
+		margin-left: 5px;
+		margin-top: 0px;
+		margin-bottom: -1px;
 		opacity: 0.6; }
 		
 	</style>
@@ -148,25 +153,28 @@ info.update = function (props) {
 info.addTo(map);
 
 var legend = L.control({position: 'bottomright'});
-
+		
 legend.onAdd = function (map) {
+		
+var div = L.DomUtil.create('div', 'info legend'),
+			grades = [1, 4, 7, 12, 26, 71],
+			labels = ['<h4>Structural Fires:</h4>'],
+			from, to;
 
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = [1, 4, 7, 12, 26, 71],
-        labels = [],
-		from, to;
+for (var i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
 
-    
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    }
+			labels.push(
+				'<i style="background:' + getColor(from + 1) + '"></i> ' +
+				from + (to ? '&ndash;' + to : '+'));
+		}
 
-    return div;
-};
+		div.innerHTML = labels.join('<br>');
+		return div;
+	};
 
-legend.addTo(map);
+	legend.addTo(map);
 
 
 </script>
