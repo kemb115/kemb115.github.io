@@ -20,6 +20,158 @@
     <hr />
   </div>
   </div>
+<head>
+	
+	<title>Lab 4</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<style>
+	
+	.info{
+		padding: 2px;
+		font: 1px, lato;
+		background: gray;
+		background: rgba(255,255,255,1);
+		box-shadow: 0 0 15px rgba(0,0,0,0,1);
+		border-radius: 4px;
+		}
+		.info h4{
+			margin: 1 1 1px;
+			color:black;
+			}
+	.legend{
+		text-align: left;
+		line-height: 25px;
+		color: gray; }
+		
+	.legend i {
+		width: 15px;
+		height: 15px;
+		float: left;
+		margin-right: 15px;
+		opacity: 0.6; }
+		
+	</style>
+</head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+<center><div id="map" style="width: 1350px; height: 925px;"></div></center>
+
+<script type="text/javascript" src="aucklandfires.js"></script>
+	
+<script>
+
+	var map = L.map('map').setView([-36.89248, 174.83236], 11);
+
+	L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a Fire Data  href="https://fireandemergency.nz"> 2016 New Zealand Fire Service</a>',
+		subdomains: 'abcd',
+		minZoom: 1,
+		maxZoom: 18,
+		ext: 'png',
+	}).addTo(map);
+	
+	
+	
+function getColor(d) {
+    return d > 71 ? '#990000' :
+           d > 26  ? '#d7301f' :
+           d > 12  ? '#ef6548' :
+           d > 7  ? '#fc8d59' :
+           d > 4   ? '#fdbb84' :
+           d > 1   ? '#fdd49e' :
+					'#fef0d9';
+}
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.NUMPOINTS),
+        weight: 0.5,
+        opacity: 0.5,
+        color: 'black',
+        dashArray: '1',
+        fillOpacity: 0.45
+    };
+}
+
+L.geoJson(fire, {style: style}).addTo(map);
+
+var geojson;
+
+function highlightFeature(e){
+var layer=e.target; 
+
+layer.setStyle({
+weight:4,
+color:'black',
+fillOpacity:1
+});
+
+if (!L.Browser.ie&&!L.Browser.opera&&!L.Browser.edge){layer.bringToFront();
+}
+info.update(layer.feature.properties);
+}
+
+function resetHighlight(e){
+ geojson.resetStyle(e.target);
+ }
+ 
+ function onEachFeature(feature, layer){
+  layer.on({
+    mouseover:highlightFeature,
+	mouseout:resetHighlight,
+	});
+	}
+ 
+ 
+geojson=L.geoJson(fire,{style: style}).addTo(map);
+
+geojson=L.geoJson(fire,{
+		style:style,
+		onEachFeature:onEachFeature,
+}).addTo(map);
+
+var info=L.control();
+
+info.onAdd=function(map){
+	this._div=L.DomUtil.create('div','info');
+	this.update();
+	return this._div;
+	};
+	
+info.update = function (props) {
+    this._div.innerHTML = '<h4>Number of Structural Fires Between 2013 and 2016:</h4>' +  (props ?
+         + props.NUMPOINTS + '   Fires'
+        : 'Hover over a Hexbin');
+};
+
+info.addTo(map);
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [1, 4, 7, 12, 26, 71],
+        labels = [],
+		from, to;
+
+    
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+
+
+</script>
+
+</div>
 </body>
 </html>
 
