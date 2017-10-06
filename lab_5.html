@@ -21,4 +21,123 @@
   </div>
   </div>
 </body>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0" />
+    <style type="text/css">
+      
+      #map {
+        height: 100%;
+      }
+	  
+	 #legend {
+			position: right;
+			width: 0px; 
+			height: 35px;
+			margin-top: 3px;
+			margin-left: 10px;
+			}
+	#legendGradient {
+			width: 20%;
+			height: 15px;
+			border: 0px solid black;
+			}
+     #text {
+			position: right;
+			}
+    </style>
+  </head>
+  <body>
+      <center><div id="map" style="width: 920px; height: 918px;"></div></center> 
+	  <div id="legend">
+	  <div id="legendGradient"></div></div>
+	   <center><div id="text">0<span style="white-space:pre">                             Earthquake Magnitude                                 </span>4+</span></div></center>
+	  <center><div id="legendGradient" style="background: -webkit-linear-gradient(left, rgba(10, 255, 137, 1), rgb(92, 255, 20), rgb(173, 255, 10), rgb(222, 255, 10), rgb(251, 255, 10), rgb(255, 226, 10), rgb(255, 206, 10), rgb(255, 169, 10), rgb(255, 120, 10), rgb(255, 35, 15));"></div></center>
+	
+ 
+ <script>
+      var map;
+	  
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: -41.2865, lng: 174.7762 },
+          zoom: 6,
+          mapTypeId: 'satellite'
+		  
+        });
+
+	var geoJSON = map.data.loadGeoJson(
+     
+	 'http://wfs.geonet.org.nz/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&maxFeatures=50&outputFormat=json');
+
+		map.data.setStyle(styleFeature);
+
+}
+
+		function styleFeature(feature) {
+			var low = [151, 100, 52];  
+			var high = [5, 100, 53];  
+			var minMagnitude = 0.5;
+			var maxMagnitude = 4;
+
+        
+			var fraction = (Math.min(feature.getProperty('magnitude'), maxMagnitude) - minMagnitude) /
+            (maxMagnitude - minMagnitude);
+
+			var color = interpolateHsl(low, high, fraction);
+
+			return {
+			icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            strokeWeight: 0.5,
+            strokeColor: '#fff',
+            fillColor: color,
+            fillOpacity: 2 / feature.getProperty('magnitude'),
+            
+            scale: Math.pow(feature.getProperty('magnitude'), 2)
+          },
+          zIndex: Math.floor(feature.getProperty('magnitude'))
+        };
+      }
+
+			function interpolateHsl(lowHsl, highHsl, fraction) {
+			var color = [];
+			for (var i = 0; i < 3; i++) {
+         
+			color[i] = (highHsl[i] - lowHsl[i]) * fraction + lowHsl[i];
+        }
+
+			return 'hsl(' + color[0] + ',' + color[1] + '%,' + color[2] + '%)';
+      }
+
+		var mapStyle = [{
+        'featureType': 'all',
+        'elementType': 'all',
+        'stylers': [{'visibility': 'off'}]
+      }, {
+        'featureType': 'landscape',
+        'elementType': 'geometry',
+        'stylers': [{'visibility': 'on'}, {'color': '#fcfcfc'}]
+      }, {
+        'featureType': 'water',
+        'elementType': 'labels',
+        'stylers': [{'visibility': 'off'}]
+      }, {
+        'featureType': 'water',
+        'elementType': 'geometry',
+        'stylers': [{'visibility': 'on'}, {'hue': '#5f94ff'}, {'lightness': 60}]
+      }];
+
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpmn95owtCU5jpoEsvkdc5Q-gE0eZAO5Q&callback=initMap"
+    async defer></script>
+</body>	
 </html>
+
+	
+	
+
+
