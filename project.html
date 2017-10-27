@@ -20,5 +20,169 @@
     <hr />
   </div>
   </div>
+
+<center><div>
+<head>
+	
+	<title>Lab 4</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<style>
+		
+	.infoheader
+	font: 1px, lato;
+		
+	</style>
+
+</head>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+
+<center><div id="map" style="width: 700px; height: 925px;"></div></center>
+<script type="text/javascript" src="gbufo.js"></script>
+
+
+
+<script>
+
+
+
+	var map = L.map('map').setView([55.014479, -4.678344], 6);
+var osm =L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.satellite',
+    accessToken: 'pk.eyJ1Ijoia2VtYjExNSIsImEiOiJjajZidHp6Z3UxazlhMnFyeWN4dWRyanN0In0.0nYZa8BgPChQ2Ns-zfVRKg'
+}).addTo(map);
+var osm1 =	L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a UFO Data  href="https://github.com/planetsig/ufo-reports"> NUFORC Sigmond Axel</a>',
+		subdomains: 'abcd',
+		minZoom: 1,
+		maxZoom: 18,
+		ext: 'png',
+	}).addTo(map);
+
+ function highlightFeature(e) {
+    var layer = e.target;
+	}
+
+function clickbox (feature, layer) {
+		layer.bindPopup("<h1 class='infoheader'> Description:</h1><p>" + feature.properties.Field8 + "</p><p2>DATE/TIME: "+feature.properties.Field1 + "</p2><p3>                            SHAPE: "+feature.properties.Field5 ); 
+		};
+	
+var ufobase= L.geoJson(UFO,{
+	onEachFeature: clickbox, pointToLayer: returnCircleMarker
+}).addTo(map);
+
+
+
+var baseMaps = {
+	'Streets' : osm1,
+	'Satellite' : osm
+	};
+	
+var overlayMaps = {
+	'UFO sightings' : ufobase
+
+	};
+L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+var geojson;
+
+function highlightFeature(e){
+var layer=e.target; 
+
+layer.setStyle({
+weight:4,
+color:'black',
+fillOpacity:1
+});
+
+if (!L.Browser.ie&&!L.Browser.opera&&!L.Browser.edge){layer.bringToFront();
+}
+info.update(layer.feature.properties);
+}
+var style = {
+    'default': {
+        'color': 'lightgreen'
+    },
+    'highlight': {
+        'color': 'darkgreen'
+    }
+};
+
+var highlight;
+
+function setHighlight (layer) {
+  
+  if (highlight) {
+    unsetHighlight(highlight);
+  }
+  
+  layer.setStyle(style.highlight);
+  highlight = layer;
+}
+
+function unsetHighlight (layer) {
+ 
+  layer.setStyle(style.default);
+  highlight = null;
+}
+
+ufobase.eachLayer(function (layer) {
+
+    layer.setStyle(style.default);
+    
+   
+ 
+   
+    layer.on('mouseover', function (e) {
+        
+        setHighlight(layer);
+    });
+
+    
+    layer.on('mouseout', function (e) {
+         
+        unsetHighlight(layer);
+    });
+
+   
+    var list = L.DomUtil.get('list'),
+      m
+        item = L.DomUtil.create('li', 'item', list),
+       
+        link = L.DomUtil.create('a', 'link', item);
+
+    
+    link.textContent = layer.options.label;
+    
+    link.href = '#';
+
+    
+    L.DomEvent.addListener(link, 'click', function (e) {
+      
+        setHighlight(layer);
+    });
+});
+
+	function returnCircleMarker (json, latlng){
+		var att= json.properties;
+		return L.circleMarker(latlng, {radius:4, color:'lightgreen'})
+		};
+
+
+
+
+		
+		
+	
+</script>
+  </div></center>
+</body>
+</html>
+
+
 </body>
 </html>
