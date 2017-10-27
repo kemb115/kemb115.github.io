@@ -20,8 +20,8 @@
     <hr />
   </div>
   </div>
-<div><font size="4"><h2>This Data is provided the National UFO reoprting center(NUFORC), an organisation which investigates both alien contacts and UFO sightings. The data on the map gives information about UFO sightings in the United Kingdom from 1951 to 2013 that have been sorted by Sigmond Axel. This map has been made via Leaflet and has interchangable baselayers and clickable points.</h2></font></div>
-<center><div>
+<!DOCTYPE html>
+<html>
 <head>
 	
 	<title>Project</title>
@@ -29,11 +29,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<style>
 		
-	.infoheader
-	font: 1px, lato;
-		
+	.des{
+		padding: 2px;
+		font: 50%, lato;
+		background: gray;
+		background: rgba(255,255,255,1);
+		box-shadow: 0 0 15px rgba(0,0,0,0,1);
+		border-radius: 4px;
+		}
 	</style>
-
+<center><h1>UFO sightings in the United Kingdom (1951-2013).</h1></center>
+<center><div style="width: 700px"><h5 class='des'>This Data is provided the National UFO reoprting center(NUFORC), an organisation which investigates both alien contacts and UFO sightings. 
+The data on the map gives information about UFO sightings in the United Kingdom from 1951 to 2013 that have been sorted by Sigmond Axel. 
+This map has been made via Leaflet and has interchangable baselayers and clickable points.</h5></div></center>
 </head>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
@@ -50,7 +58,7 @@
 
 	var map = L.map('map').setView([55.014479, -4.678344], 6);
 var osm =L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a><aUFO Data  href="https://github.com/planetsig/ufo-reports"> NUFORC Sigmond Axel',></a>
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox.satellite',
     accessToken: 'pk.eyJ1Ijoia2VtYjExNSIsImEiOiJjajZidHp6Z3UxazlhMnFyeWN4dWRyanN0In0.0nYZa8BgPChQ2Ns-zfVRKg'
@@ -179,10 +187,7 @@ ufobase.eachLayer(function (layer) {
 		
 	
 </script>
-  </div></center>
-</body>
-</html>
-
 
 </body>
 </html>
+
